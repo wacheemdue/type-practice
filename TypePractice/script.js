@@ -5,17 +5,20 @@ const timerElement = document.getElementById('timer');
 const wpmElement = document.getElementById('wpm');
 var button = document.getElementById("newQuote");
 
-button.onclick = function() {
-  renderNewQuote()
-}
 
 let wrong = false
+
+button.onclick = function() {
+  renderNewQuote()
+  wrong = false
+}
 
 quoteInputElement.addEventListener('input', () => {
   const arrayQuote = quoteDisplayElement.querySelectorAll('span')
   const arrayValue = quoteInputElement.value.split('')
 
   let correct = true
+  wrong = false
   arrayQuote.forEach((characterSpan, index) => {
     const character = arrayValue[index]
     if (character == null) {
@@ -25,11 +28,12 @@ quoteInputElement.addEventListener('input', () => {
     } else if (character === characterSpan.innerText) {
       characterSpan.classList.add('correct')
       characterSpan.classList.remove('incorrect')
-      wrong = false
     } else {
       characterSpan.classList.remove('correct')
       characterSpan.classList.add('incorrect')
       correct = false
+    }
+    if (characterSpan.className === 'incorrect') {
       wrong = true
     }
   })
