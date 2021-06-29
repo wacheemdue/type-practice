@@ -73,7 +73,11 @@ function startWPM() {
   setInterval(() => {
     var numWords = quoteDisplayElement.innerText.split(' ').length
     var correctWords = quoteInputElement.value.split(' ').length - 1
-    var wpm = Math.round(correctWords*1.0 / (getTimerTime()*1.0 / 60))
+    if (getTimerTime() >= 1) {
+      var wpm = Math.round(correctWords*1.0 / (getTimerTime()*1.0 / 60))
+    } else {
+      wpm = 0
+    }
     if (!wrong) {
       wpmElement.innerText = wpm + ' WPM'
     } else {
