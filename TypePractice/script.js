@@ -52,9 +52,16 @@ async function renderNewQuote() {
   quote.split('').forEach(character => {
     const characterSpan = document.createElement('span')
     characterSpan.innerText = character
+    if (characterSpan.innerText === '’') {
+      characterSpan.innerText = '\''
+    } else if (characterSpan.innerText === '…') {
+      renderNewQuote()
+      return
+    }
     quoteDisplayElement.appendChild(characterSpan)
   })
   quoteInputElement.value = null
+  
   startTimer()
   startWPM()
 }
