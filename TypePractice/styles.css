@@ -24,9 +24,17 @@ body, .quote_input {
     max-width: 90%;
 }
 
+.header {
+    position: absolute;
+    top: 1rem;
+    font-size: 4rem;
+    color: blueviolet;
+    font-weight: bold;
+}
+
 .timer {
     position: absolute;
-    top: 2rem;
+    top: 5.5rem;
     font-size: 3rem;
     color: blueviolet;
     font-weight: bold;
@@ -78,7 +86,17 @@ body, .quote_input {
 .vertical-center {
     margin: 0;
     position: absolute;
-    top: 25%;
+    top: 27%;
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
+  }
+
+  .wpm {
+    margin: 0;
+    position: absolute;
+    top: 80%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    font-size: 2rem;
+    color: blueviolet;
   }

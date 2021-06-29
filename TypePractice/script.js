@@ -2,11 +2,14 @@ const RANDOM_QUOTE_API_URL = 'http://api.quotable.io/random';
 const quoteDisplayElement = document.getElementById('quoteDisplay');
 const quoteInputElement = document.getElementById('quoteInput');
 const timerElement = document.getElementById('timer');
+const wpmElement = document.getElementById('wpm');
 var button = document.getElementById("newQuote");
 
 button.onclick = function() {
   renderNewQuote()
 }
+
+let wrong = false
 
 quoteInputElement.addEventListener('input', () => {
   const arrayQuote = quoteDisplayElement.querySelectorAll('span')
@@ -22,10 +25,12 @@ quoteInputElement.addEventListener('input', () => {
     } else if (character === characterSpan.innerText) {
       characterSpan.classList.add('correct')
       characterSpan.classList.remove('incorrect')
+      wrong = false
     } else {
       characterSpan.classList.remove('correct')
       characterSpan.classList.add('incorrect')
       correct = false
+      wrong = true
     }
   })
   if (correct) renderNewQuote()
@@ -47,6 +52,7 @@ async function renderNewQuote() {
   })
   quoteInputElement.value = null
   startTimer()
+  startWPM()
 }
 
 let startTime
@@ -60,6 +66,20 @@ function startTimer() {
 
 function getTimerTime() {
   return Math.floor((new Date() - startTime) / 1000)
+}
+
+function startWPM() {
+  wpmElement.innerText = '0 WPM'
+  setInterval(() => {
+    var numWords = quoteDisplayElement.innerText.split(' ').length
+    var correctWords = quoteInputElement.value.split(' ').length - 1
+    var wpm = Math.round(correctWords*1.0 / (getTimerTime()*1.0 / 60))
+    if (!wrong) {
+      wpmElement.innerText = wpm + ' WPM'
+    } else {
+      wpmElement.innerText = 'Incorrect character(s)'
+    }
+  }, 250)
 }
 
 renderNewQuote()
